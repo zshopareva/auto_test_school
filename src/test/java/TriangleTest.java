@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class TriangleTest {
+
     @Parameterized.Parameter(0)
     public int a;
 
@@ -23,26 +24,26 @@ public class TriangleTest {
     public boolean result;
 
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "a= {0} b={1} c={2} : result {3}")
     public static Collection<Object[]> parameters(){
-        return Arrays.asList(
-                new Object[]{1, 1, 1, true},
-                new Object[]{3, 4, 5, true},
-                new Object[]{2, 3, 4, true},
-                new Object[]{5, 5, 3, true},
-                new Object[]{Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, false},
-                new Object[]{1, 1, 0, false},
-                new Object[]{-5, -4, -3, false},
-                new Object[]{150, 80, 4, false},
-                new Object[]{0, 0, 0, false}
-        );
+        return Arrays.asList(new Object[][]{
+                {1, 1, 1, true},
+                {3, 4, 5, true},
+                {2, 3, 4, true},
+                {5, 5, 3, true},
+                {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, false},
+                {1, 1, 0, false},
+                {-5, -4, -3, false},
+                {150, 80, 4, false},
+                {0, 0, 0, false}
+        });
     }
 
     @Test
     public void isTriangleTest(){
-        Triangle triangle = new Triangle();
-        boolean actual = triangle.isTriangle(a, b, c);
-        assertEquals(result, actual);
+        Triangle triangle = new Triangle(a, b, c);
+        boolean actual = triangle.isTriangle();
+        assertEquals("Проверяем, что переданные значения образуют треугольник", result, actual);
 
     }
 }
