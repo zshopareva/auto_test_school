@@ -13,11 +13,11 @@ public class MainSteps {
 
     private WebDriver webDriver;
 
-    MainSteps(WebDriver webDriver) {
+    public  MainSteps(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
-    public void open(String url) {
+    public void openAllCarsPage(String url) {
         webDriver.get(url);
     }
 
@@ -39,5 +39,9 @@ public class MainSteps {
     protected <T extends WebPage> T on(Class<T> pageClass) {
         WebPageFactory factory = new WebPageFactory();
         return factory.get(webDriver, pageClass);
+    }
+
+    public void openAllCarsPage(){
+        openAllCarsPage("https://auto.ru/cars/all/");
     }
 }
