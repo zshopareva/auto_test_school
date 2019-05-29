@@ -30,7 +30,7 @@ public class MarkPriceCatalogEquipmentOneOwnerTest {
 
     @Test
     public void checkPriceFromInUrl(){
-        mainSteps.onAllCarsPage().priceFrom().sendKeys("670000");
+        mainSteps.onAllCarsPage().priceFromInput().sendKeys("670000");
         mainSteps.onAllCarsPage().findCars().click();
         mainSteps.shouldSeeUrl("https://auto.ru/sankt-peterburg/cars/all/?sort=fresh_relevance_1-desc&price_from=670000");
     }

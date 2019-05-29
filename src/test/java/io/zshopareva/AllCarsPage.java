@@ -8,7 +8,7 @@ import io.qameta.htmlelements.element.HtmlElement;
 
 public interface AllCarsPage extends WebPage {
     @Description("Фильтр с выподающим списком {{ value }}")
-    @FindBy("//button[@class='Button Button_size_m Button_type_button Button_width_default Select__button']//span[contains(.,'{{ value }}')]")
+    @FindBy("//button[contains(@class, 'Select__button')]//span[contains(.,'{{ value }}')]")
     HtmlElement selectButton(@Param("value") String value);
 
     @Description("Кнопка {{ value }}")
@@ -19,10 +19,7 @@ public interface AllCarsPage extends WebPage {
     @FindBy("//label[contains(@class, 'Checkbox')]//span[contains(., '{{ value }}')]")
     HtmlElement checkBoxFilter(@Param("value") String value);
 
-    @FindBy("//div[contains(@class, 'Popup_js_inited')][contains(@class, 'Popup_visible')]")
-    HtmlElement filterPopup();
-
-    @FindBy(".//div[contains(@class, 'MenuItem MenuItem_size_m')][contains(., '{{ value }}')]")
+    @FindBy(".//div[contains(@class, 'MenuItem')][contains(., '{{ value }}')]")
     HtmlElement item(@Param("value") String value);
 
     @FindBy("//span[contains(.,'Все параметры')]")
@@ -32,12 +29,11 @@ public interface AllCarsPage extends WebPage {
     HtmlElement findCars();
 
     @FindBy("//input[@name='price_from']")
-    HtmlElement priceFrom();
+    HtmlElement priceFromInput();
 
 
     default void select(String filterName, String value){
         selectButton(filterName).click();
-        filterPopup();
         item(value).click();
     }
 
