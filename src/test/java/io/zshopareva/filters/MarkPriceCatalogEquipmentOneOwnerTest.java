@@ -16,20 +16,46 @@ public class MarkPriceCatalogEquipmentOneOwnerTest {
     @Before
     public void setUp() {
         mainSteps = new MainSteps(driverRule.driver());
+        mainSteps.openAllCarsPage();
     }
 
     @Test
-    public void test(){
-        mainSteps.openAllCarsPage();
+    public void checkMarkInUrl(){
         mainSteps.onAllCarsPage().allParams().click();
         mainSteps.onAllCarsPage().select("Марка", "Chery");
-        mainSteps.onAllCarsPage().select("Коробка", "Вариатор");
-        mainSteps.onAllCarsPage().buttonFilter("Частник").click();
-        mainSteps.onAllCarsPage().checkBoxFilter("Противотуманные фары").click();
+        mainSteps.onAllCarsPage().findCars().click();
+        mainSteps.shouldSeeUrl("https://auto.ru/sankt-peterburg/cars/chery/all/?sort=fresh_relevance_1-desc");
+    }
+
+
+    @Test
+    public void checkPriceFromInUrl(){
         mainSteps.onAllCarsPage().priceFrom().sendKeys("670000");
         mainSteps.onAllCarsPage().findCars().click();
+        mainSteps.shouldSeeUrl("https://auto.ru/sankt-peterburg/cars/all/?sort=fresh_relevance_1-desc&price_from=670000");
+    }
 
-        mainSteps.shouldSeeUrl("https://auto.ru/sankt-peterburg/cars/chery/all/?sort=fresh_relevance_1-desc&" +
-                "transmission=VARIATOR&seller_group=PRIVATE&catalog_equipment=ptf&price_from=670000");
+    @Test
+    public void checkTransmissionInUrl(){
+        mainSteps.onAllCarsPage().select("Коробка", "Вариатор");
+        mainSteps.onAllCarsPage().findCars().click();
+        mainSteps.shouldSeeUrl("https://auto.ru/sankt-peterburg/cars/all/?sort=fresh_relevance_1-desc&" +
+                "transmission=VARIATOR");
+    }
+
+    @Test
+    public void checkCatalogEquipmentPtf(){
+        mainSteps.onAllCarsPage().allParams().click();
+        mainSteps.onAllCarsPage().checkBoxFilter("Противотуманные фары").click();
+        mainSteps.onAllCarsPage().findCars().click();
+        mainSteps.shouldSeeUrl("https://auto.ru/sankt-peterburg/cars/all/?sort=fresh_relevance_1-desc&catalog_equipment=ptf");
+    }
+
+    @Test
+    public void checkSellerGroupPrivate(){
+        mainSteps.onAllCarsPage().allParams().click();
+        mainSteps.onAllCarsPage().buttonFilter("Частник").click();
+        mainSteps.onAllCarsPage().findCars().click();
+        mainSteps.shouldSeeUrl("https://auto.ru/sankt-peterburg/cars/all/?sort=fresh_relevance_1-desc&seller_group=PRIVATE");
     }
 }
