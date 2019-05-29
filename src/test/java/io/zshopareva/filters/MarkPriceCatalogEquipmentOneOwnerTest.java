@@ -21,7 +21,6 @@ public class MarkPriceCatalogEquipmentOneOwnerTest {
 
     @Test
     public void checkMarkInUrl(){
-        mainSteps.onAllCarsPage().allParams().click();
         mainSteps.onAllCarsPage().select("Марка", "Chery");
         mainSteps.onAllCarsPage().findCars().click();
         mainSteps.shouldSeeUrl("https://auto.ru/sankt-peterburg/cars/chery/all/?sort=fresh_relevance_1-desc");
